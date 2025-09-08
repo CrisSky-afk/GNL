@@ -3,57 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cris_sky <cris_sky@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csuomins <csuomins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 15:31:35 by csuomins          #+#    #+#             */
-/*   Updated: 2025/09/07 19:32:04 by cris_sky         ###   ########.fr       */
+/*   Updated: 2025/09/08 12:01:15 by csuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-void    *ft_memcpy(void *dest, const void *src, size_t n)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-    unsigned char   *ptr_dest;
-    unsigned char   *ptr_src;
-    size_t          i;
+	unsigned char	*ptr_dest;
+	unsigned char	*ptr_src;
+	size_t			i;
 
-    if (!dest && !src)
-        return (NULL);
-    ptr_dest = (unsigned char *)dest;
-    ptr_src = (unsigned char *)src;
-    i = 0;
-    while (i < n)
-    {
-        ptr_dest[i] = ptr_src[i];
-        i++;
-    }
-    return (dest);
+	if (!dest && !src)
+		return (NULL);
+	ptr_dest = (unsigned char *)dest;
+	ptr_src = (unsigned char *)src;
+	i = 0;
+	while (i < n)
+	{
+		ptr_dest[i] = ptr_src[i];
+		i++;
+	}
+	return (dest);
 }
 
-size_t ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
-    size_t  i;
-    
-    i = 0;
-    while (s[i] != '\0')
-        i++;
-    return (i);
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
 }
 
-char    *ft_strdup(const char *s)
+char	*ft_strdup(const char *s)
 {
-    char    *size;
-    int     len;
+	char	*size;
+	int		len;
 
-    len = ft_strlen((char *)s);
-    size = (char *)malloc(sizeof(char) * (len + 1));
-    if (!size)
-        return (NULL);
-    ft_memcpy(size, s, len);
-    size[len] = '\0';
-    return(size);
+	len = ft_strlen((char *)s);
+	size = (char *)malloc(sizeof(char) * (len + 1));
+	if (!size)
+		return (NULL);
+	ft_memcpy(size, s, len);
+	size[len] = '\0';
+	return (size);
 }
 
 /*int main (void) // main do memcpy
