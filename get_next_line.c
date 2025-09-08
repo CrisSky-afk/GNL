@@ -6,7 +6,7 @@
 /*   By: csuomins <csuomins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 15:31:39 by csuomins          #+#    #+#             */
-/*   Updated: 2025/09/08 12:03:43 by csuomins         ###   ########.fr       */
+/*   Updated: 2025/09/08 14:37:21 by csuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,49 @@ char	*atualiza_resto(char *resto)
 	return (novo_resto);
 }
 
+char	*lendo_fd(int fd, char *resto)
+{
+	char	*buffer;
+	int		leitor_bytes;	
+
+	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (NULL);
+	leitor_bytes = 1;
+	while (!ft_strchr(resto, '\n') && leitor_bytes != 0)
+	{
+		leitor_bytes = read(fd, buffer, BUFFER_SIZE);
+		if (leitor_bytes == -1)
+		{
+			free(buffer);
+			return (NULL);
+		}
+		buffer[leitor_bytes] = '\0';
+		resto = ft_strjoin(resto, buffer);
+		if (!resto)
+		{
+			free(buffer);
+			return (NULL);
+		}
+	}
+	free(buffer);
+	return (resto);
+}
+
+char	*get_next_line(int fd)
+{
+	static char		*resto;
+	char			*linha;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
+	resto = lendo_fd(fd, resto);
+	if (!resto)
+		return (NULL);
+	linha = extrai_linha(resto);
+	resto = atualiza_resto(resto);
+	return (linha);
+}
 
 // int main (void)
 // {
@@ -98,39 +141,37 @@ char	*atualiza_resto(char *resto)
 //     return 0;
 // }
 
-#include "get_next_line.h"
-#include <stdio.h>
+// int main(void)
+// {
+//     char *str = ft_strdup("hoje\né\num\nnovo\ndia\nde\num\nnovo\ntempo");
+//     char *resto;
+//     char *linha;
 
-int main(void)
-{
-    char *str = ft_strdup("hoje\né\num\nnovo\ndia\nde\num\nnovo\ntempo");
-    char *resto;
-    char *linha;
+//     printf("=== Teste 1: extrai uma linha e imprime resto ===\n");
+//     resto = ft_strdup(str); // duplicando a string para não alterar a original
+//     linha = extrai_linha(resto);
+//     printf("Linha extraída: %s", linha);  // imprime só a primeira linha
+//     free(linha);
 
-    printf("=== Teste 1: extrai uma linha e imprime resto ===\n");
-    resto = ft_strdup(str); // duplicando a string para não alterar a original
-    linha = extrai_linha(resto);
-    printf("Linha extraída: %s", linha);  // imprime só a primeira linha
-    free(linha);
+//     resto = atualiza_resto(resto);
+//     printf("Resto depois da atualização:\n%s", resto); // imprime todo o resto de uma vez
+//     free(resto);
 
-    resto = atualiza_resto(resto);
-    printf("Resto depois da atualização:\n%s", resto); // imprime todo o resto de uma vez
-    free(resto);
+//     printf("\n=== Teste 2: extrai todas as linhas em loop ===\n");
+//     resto = ft_strdup(str);
+//     while (resto)
+//     {
+//         linha = extrai_linha(resto);
+//         if (!linha)
+//             break;
 
-    printf("\n=== Teste 2: extrai todas as linhas em loop ===\n");
-    resto = ft_strdup(str);
-    while (resto)
-    {
-        linha = extrai_linha(resto);
-        if (!linha)
-            break;
+//         printf("Linha extraída no loop: %s", linha);
+//         free(linha);
 
-        printf("Linha extraída no loop: %s", linha);
-        free(linha);
+//         resto = atualiza_resto(resto);
+//     }
 
-        resto = atualiza_resto(resto);
-    }
+//     free(str);
+//     return 0;
+// }
 
-    free(str);
-    return 0;
-}

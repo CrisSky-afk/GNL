@@ -6,7 +6,7 @@
 /*   By: csuomins <csuomins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 15:31:35 by csuomins          #+#    #+#             */
-/*   Updated: 2025/09/08 12:01:15 by csuomins         ###   ########.fr       */
+/*   Updated: 2025/09/08 13:10:44 by csuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,45 @@ char	*ft_strdup(const char *s)
 	ft_memcpy(size, s, len);
 	size[len] = '\0';
 	return (size);
+}
+
+char	*ft_strchr(const char *str, int c)
+{
+	int				i;
+	unsigned char	target;
+
+	i = 0;
+	target = (unsigned char)c;
+	while (str[i] != '\0')
+	{
+		if (str[i] == target)
+			return ((char *)(str + i));
+		i++;
+	}
+	if (target == '\0')
+		return ((char *)(str + i));
+	return (NULL);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*new_str;
+	size_t	len_total;
+	size_t	len1;
+	size_t	len2;
+
+	if (!s1 || !s2)
+		return (NULL);
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	len_total = ft_strlen(s1) + ft_strlen(s2);
+	new_str = (char *)malloc(sizeof(char) * (len_total + 1));
+	if (!new_str)
+		return (NULL);
+	ft_memcpy(new_str, s1, len1);
+	ft_memcpy((new_str + len1), s2, len2);
+	new_str[len_total] = '\0';
+	return (new_str);
 }
 
 /*int main (void) // main do memcpy
