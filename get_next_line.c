@@ -6,7 +6,7 @@
 /*   By: csuomins <csuomins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 15:31:39 by csuomins          #+#    #+#             */
-/*   Updated: 2025/09/08 14:37:21 by csuomins         ###   ########.fr       */
+/*   Updated: 2025/09/08 15:03:59 by csuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ char	*lendo_fd(int fd, char *resto)
 	if (!buffer)
 		return (NULL);
 	leitor_bytes = 1;
+	if (!resto)
+		resto = ft_strdup("");
 	while (!ft_strchr(resto, '\n') && leitor_bytes != 0)
 	{
 		leitor_bytes = read(fd, buffer, BUFFER_SIZE);
@@ -104,74 +106,27 @@ char	*get_next_line(int fd)
 	return (linha);
 }
 
-// int main (void)
-// {
-//     char *str1 = ft_strdup("hoje\né\num\nnovo\ndia\nde\num\nnovo\ntempo");
-//     char *linha;
-//     char *resto = str1;
+int	main(void)
+{
+	int		fd;
+	char	*linha;
 
-//     linha = extrai_linha(resto);
-//     printf("%s", linha);
-//     free(linha);
+	// Abrir arquivo de teste
+	fd = open("arquivo2.txt", O_RDONLY);
+	if (fd < 0)
+	{
+		perror("Erro ao abrir arquivo");
+		return (1);
+	}
 
-//     resto = atualiza_resto(resto);
-//     printf("%s", resto);  // apenas pra ver o que sobrou
-//     free(resto);
+	// Ler linha por linha
+	while ((linha = get_next_line(fd)) != NULL)
+	{
+		printf("%s", linha); // imprime a linha lida
+		free(linha);          // libera memória da linha
+	}
 
-// }
-
-// int main(void)
-// {
-//     char *str1 = ft_strdup("hoje\né\num\nnovo\ndia\nde\num\nnovo\ntempo");
-//     char *resto = str1;
-//     char *linha;
-
-//     while (resto)  // enquanto ainda houver resto
-//     {
-//         linha = extrai_linha(resto);
-//         if (!linha)   // se não conseguir extrair, sai do loop
-//             break;
-
-//         printf("%s", linha);  // imprime a linha (com \n, se houver)
-//         free(linha);
-
-//         resto = atualiza_resto(resto);  // atualiza o resto
-//     }
-
-//     return 0;
-// }
-
-// int main(void)
-// {
-//     char *str = ft_strdup("hoje\né\num\nnovo\ndia\nde\num\nnovo\ntempo");
-//     char *resto;
-//     char *linha;
-
-//     printf("=== Teste 1: extrai uma linha e imprime resto ===\n");
-//     resto = ft_strdup(str); // duplicando a string para não alterar a original
-//     linha = extrai_linha(resto);
-//     printf("Linha extraída: %s", linha);  // imprime só a primeira linha
-//     free(linha);
-
-//     resto = atualiza_resto(resto);
-//     printf("Resto depois da atualização:\n%s", resto); // imprime todo o resto de uma vez
-//     free(resto);
-
-//     printf("\n=== Teste 2: extrai todas as linhas em loop ===\n");
-//     resto = ft_strdup(str);
-//     while (resto)
-//     {
-//         linha = extrai_linha(resto);
-//         if (!linha)
-//             break;
-
-//         printf("Linha extraída no loop: %s", linha);
-//         free(linha);
-
-//         resto = atualiza_resto(resto);
-//     }
-
-//     free(str);
-//     return 0;
-// }
-
+	// Fechar arquivo
+	close(fd);
+	return (0);
+}
