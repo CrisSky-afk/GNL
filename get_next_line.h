@@ -6,7 +6,7 @@
 /*   By: csuomins <csuomins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 15:15:50 by csuomins          #+#    #+#             */
-/*   Updated: 2025/09/08 14:31:07 by csuomins         ###   ########.fr       */
+/*   Updated: 2025/09/09 14:11:27 by csuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ size_t		ft_strlen(const char *s);
 char		*ft_strdup(const char *s);
 char		*ft_strchr(const char *str, int c);
 char		*ft_strjoin(char const *s1, char const *s2);
+char		*get_next_line(int fd);
+char		*lendo_fd(int fd, char *resto);
 
 #endif
 

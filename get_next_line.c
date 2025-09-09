@@ -6,7 +6,7 @@
 /*   By: csuomins <csuomins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 15:31:39 by csuomins          #+#    #+#             */
-/*   Updated: 2025/09/08 15:03:59 by csuomins         ###   ########.fr       */
+/*   Updated: 2025/09/09 14:05:12 by csuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ char	*atualiza_resto(char *resto)
 char	*lendo_fd(int fd, char *resto)
 {
 	char	*buffer;
-	int		leitor_bytes;	
+	int		leitor_bytes;
+	char	*temp;	
 
 	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
@@ -71,21 +72,30 @@ char	*lendo_fd(int fd, char *resto)
 	leitor_bytes = 1;
 	if (!resto)
 		resto = ft_strdup("");
+	if (!resto)
+	{
+		free(buffer);
+		return (NULL);
+	}
+	leitor_bytes = 1;
 	while (!ft_strchr(resto, '\n') && leitor_bytes != 0)
 	{
 		leitor_bytes = read(fd, buffer, BUFFER_SIZE);
 		if (leitor_bytes == -1)
 		{
 			free(buffer);
+			free(resto);
 			return (NULL);
 		}
 		buffer[leitor_bytes] = '\0';
-		resto = ft_strjoin(resto, buffer);
-		if (!resto)
+		temp = ft_strjoin(resto, buffer);
+		free(resto);
+		if (!temp)
 		{
 			free(buffer);
 			return (NULL);
 		}
+		resto = temp;
 	}
 	free(buffer);
 	return (resto);
@@ -97,7 +107,7 @@ char	*get_next_line(int fd)
 	char			*linha;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (0);
+		return (NULL);
 	resto = lendo_fd(fd, resto);
 	if (!resto)
 		return (NULL);
@@ -106,27 +116,27 @@ char	*get_next_line(int fd)
 	return (linha);
 }
 
-int	main(void)
-{
-	int		fd;
-	char	*linha;
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*linha;
 
-	// Abrir arquivo de teste
-	fd = open("arquivo2.txt", O_RDONLY);
-	if (fd < 0)
-	{
-		perror("Erro ao abrir arquivo");
-		return (1);
-	}
+// 	// Abrir arquivo de teste
+// 	fd = open("arquivo2.txt", O_RDONLY);
+// 	if (fd < 0)
+// 	{
+// 		perror("Erro ao abrir arquivo");
+// 		return (1);
+// 	}
 
-	// Ler linha por linha
-	while ((linha = get_next_line(fd)) != NULL)
-	{
-		printf("%s", linha); // imprime a linha lida
-		free(linha);          // libera memória da linha
-	}
+// 	// Ler linha por linha
+// 	while ((linha = get_next_line(fd)) != NULL)
+// 	{
+// 		printf("%s", linha); // imprime a linha lida
+// 		free(linha);          // libera memória da linha
+// 	}
 
-	// Fechar arquivo
-	close(fd);
-	return (0);
-}
+// 	// Fechar arquivo
+// 	close(fd);
+// 	return (0);
+// }
