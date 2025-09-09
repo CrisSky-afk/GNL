@@ -6,7 +6,7 @@
 /*   By: csuomins <csuomins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 15:31:39 by csuomins          #+#    #+#             */
-/*   Updated: 2025/09/09 14:05:12 by csuomins         ###   ########.fr       */
+/*   Updated: 2025/09/09 14:56:55 by csuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,6 @@ char	*lendo_fd(int fd, char *resto)
 	leitor_bytes = 1;
 	if (!resto)
 		resto = ft_strdup("");
-	if (!resto)
-	{
-		free(buffer);
-		return (NULL);
-	}
-	leitor_bytes = 1;
 	while (!ft_strchr(resto, '\n') && leitor_bytes != 0)
 	{
 		leitor_bytes = read(fd, buffer, BUFFER_SIZE);
@@ -90,12 +84,12 @@ char	*lendo_fd(int fd, char *resto)
 		buffer[leitor_bytes] = '\0';
 		temp = ft_strjoin(resto, buffer);
 		free(resto);
+		resto = temp;
 		if (!temp)
 		{
 			free(buffer);
 			return (NULL);
 		}
-		resto = temp;
 	}
 	free(buffer);
 	return (resto);
