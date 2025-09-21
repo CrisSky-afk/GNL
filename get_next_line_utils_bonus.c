@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cris_sky <cris_sky@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/05 15:31:35 by csuomins          #+#    #+#             */
-/*   Updated: 2025/09/20 14:43:59 by cris_sky         ###   ########.fr       */
+/*   Created: 2025/09/20 14:35:30 by cris_sky          #+#    #+#             */
+/*   Updated: 2025/09/20 14:38:14 by cris_sky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
@@ -93,34 +93,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	new_str[len_total] = '\0';
 	return (new_str);
 }
-
-/*int main (void) // main do memcpy
-{
-    char str1[20] = "testando memcpy";
-    char str2[sizeof(str1)];
-    char *result  = ft_memcpy(str2, str1, 4);
-    printf("%s\n", result);
-    return (0);
-}
-*/
-
-/* int main (void) // main ft_strlen
-{
-    char *str1 = "Hoje é um novo dia de um novo tempo que começou";
-    size_t result = ft_strlen(str1);
-    printf("%li\n", result);
-    return (0);
-} */
-
-// int main(void)
-// {
-//     char *str1 = "fazendo o teste da bagaça";
-//     char *ptr = ft_strdup(str1);
-
-//     printf("Conteúdo copiado: %s\n", ptr);   // mostra a string duplicada
-//     printf("Endereço novo  : %p\n", (void *)ptr); // mostra o ponteiro novo
-//     printf("Endereço original: %p\n", (void *)str1);// compara com o original
-
-//     free(ptr); // boa prática: libera a memória alocada
-//     return 0;
-// }

@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cris_sky <cris_sky@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/05 15:31:39 by csuomins          #+#    #+#             */
-/*   Updated: 2025/09/20 14:38:37 by cris_sky         ###   ########.fr       */
+/*   Created: 2025/09/20 14:38:23 by cris_sky          #+#    #+#             */
+/*   Updated: 2025/09/20 14:43:34 by cris_sky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// ARRUME O CABEÇALHO ANTES DE ENVIAR;
-
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*extract_line(char *buffer)
 {
@@ -102,46 +100,21 @@ char	*read_from_fd(int fd, char *saved_data)
 
 char	*get_next_line(int fd)
 {
-	static char		*buffer;
+	static char		*buffers[MAX_FD];
 	char			*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= MAX_FD || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer = read_from_fd(fd, buffer);
-	if (!buffer)
+	buffers[fd] = read_from_fd(fd, buffers[fd]);
+	if (!buffers[fd])
 		return (NULL);
-	line = extract_line(buffer);
+	line = extract_line(buffers[fd]);
 	if (!line)
 	{
-		free(buffer);
-		buffer = NULL;
+		free(buffers[fd]);
+		buffers[fd] = NULL;
 		return (NULL);
 	}
-	buffer = update_buffer(buffer);
+	buffers[fd] = update_buffer(buffers[fd]);
 	return (line);
 }
-
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*linha;
-
-// 	// Abrir arquivo de teste
-// 	fd = open("arquivo2.txt", O_RDONLY);
-// 	if (fd < 0)
-// 	{
-// 		perror("Erro ao abrir arquivo");
-// 		return (1);
-// 	}
-
-// 	// Ler linha por linha
-// 	while ((linha = get_next_line(fd)) != NULL)
-// 	{
-// 		printf("%s", linha); // imprime a linha lida
-// 		free(linha);          // libera memória da linha
-// 	}
-
-// 	// Fechar arquivo
-// 	close(fd);
-// 	return (0);
-// }
