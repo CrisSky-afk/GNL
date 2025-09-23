@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cris_sky <cris_sky@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csuomins <csuomins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 15:31:39 by csuomins          #+#    #+#             */
-/*   Updated: 2025/09/22 22:03:31 by cris_sky         ###   ########.fr       */
+/*   Updated: 2025/09/23 19:12:28 by csuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// ARRUME O CABEÇALHO ANTES DE ENVIAR;
 
 #include "get_next_line.h"
 
@@ -21,8 +19,6 @@ char	*extract_line(char *buffer)
 
 	i = 0;
 	if (!buffer || !buffer[i])
-		return (NULL);
-	if (!buffer[i])
 		return (NULL);
 	while (buffer[i] != '\0' && buffer[i] != '\n')
 		i++;
@@ -66,39 +62,39 @@ char	*update_buffer(char *buffer)
 	return (new_buffer);
 }
 
-char	*read_accumulate(int fd, char *accumulated, char *temp_buffer)
+char	*read_accumulate(int fd, char *buff_read, char *new_buff)
 {
-	int		bytes_read;
-	char	*temp;
+	int		bytes_reader;
+	char	*buffers_join;
 
-	bytes_read = 1;
-	while (!ft_strchr(accumulated, '\n') && bytes_read != 0)
+	bytes_reader = 1;
+	while (!ft_strchr(buff_read, '\n') && bytes_reader != 0)
 	{
-		bytes_read = read(fd, temp_buffer, BUFFER_SIZE);
-		if (bytes_read == -1)
-			return (free(accumulated), NULL);
-		temp_buffer[bytes_read] = '\0';
-		temp = ft_strjoin(accumulated, temp_buffer);
-		if (!temp)
-			return (free(accumulated), NULL);
-		free(accumulated);
-		accumulated = temp;
+		bytes_reader = read(fd, new_buff, BUFFER_SIZE);
+		if (bytes_reader == -1)
+			return (free(buff_read), NULL);
+		new_buff[bytes_reader] = '\0';
+		buffers_join = ft_strjoin(buff_read, new_buff);
+		if (!buffers_join)
+			return (free(buff_read), NULL);
+		free(buff_read);
+		buff_read = buffers_join;
 	}
-	return (accumulated);
+	return (buff_read);
 }
 
-char	*read_from_fd(int fd, char *saved_data)
+char	*read_from_fd(int fd, char *buffer)
 {
-	char	*read_buffer;
+	char	*size_buffer;
 
-	read_buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!read_buffer)
+	size_buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!size_buffer)
 		return (NULL);
-	if (!saved_data)
-		saved_data = ft_strdup("");
-	saved_data = read_accumulate(fd, saved_data, read_buffer);
-	free(read_buffer);
-	return (saved_data);
+	if (!buffer)
+		buffer = ft_strdup("");
+	buffer = read_accumulate(fd, buffer, size_buffer);
+	free(size_buffer);
+	return (buffer);
 }
 
 char	*get_next_line(int fd)

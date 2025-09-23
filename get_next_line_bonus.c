@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cris_sky <cris_sky@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csuomins <csuomins@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:38:23 by cris_sky          #+#    #+#             */
-/*   Updated: 2025/09/22 12:14:25 by cris_sky         ###   ########.fr       */
+/*   Updated: 2025/09/23 11:57:46 by csuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*extract_line(char *buffer)
 	char	*line;
 
 	i = 0;
-	if (!buffer[i])
+	if (!buffer || !buffer[i])
 		return (NULL);
 	while (buffer[i] != '\0' && buffer[i] != '\n')
 		i++;
@@ -39,46 +39,44 @@ char	*update_buffer(char *buffer)
 {
 	char	*new_buffer;
 	int		i;
+	int		buffer_len;
+	int		remaining_len;
 
 	i = 0;
-	if (!buffer[i])
-	{
-		free(buffer);
-		return (NULL);
-	}
+	if (!buffer || !buffer[i])
+		return (free(buffer), NULL);
 	while (buffer[i] != '\0' && buffer[i] != '\n')
 		i++;
 	if (buffer[i] == '\n')
 		i++;
-	new_buffer = (char *)malloc(sizeof(char) * ((ft_strlen(buffer) - i) + 1));
+		buffer_len = ft_strlen(buffer);
+		remaining_len = buffer_len - i;
+	new_buffer = (char *)malloc(sizeof(char) * (remaining_len + 1));
 	if (!new_buffer)
-	{
-		free(buffer);
-		return (NULL);
-	}
-	ft_memcpy(new_buffer, &buffer[i], ft_strlen(buffer) - i);
-	new_buffer[ft_strlen(buffer) - i] = '\0';
+		return (free(buffer), NULL);
+	ft_memcpy(new_buffer, &buffer[i], remaining_len);
+	new_buffer[remaining_len] = '\0';
 	free(buffer);
 	return (new_buffer);
 }
 
 char	*read_accumulate(int fd, char *accumulated, char *temp_buffer)
 {
-	int		leitor_bytes;
+	int		bytes_read;
 	char	*temp;
 
-	leitor_bytes = 1;
-	while (!ft_strchr(accumulated, '\n') && leitor_bytes != 0)
+	bytes_read = 1;
+	while (!ft_strchr(accumulated, '\n') && bytes_read != 0)
 	{
-		leitor_bytes = read(fd, temp_buffer, BUFFER_SIZE);
-		if (leitor_bytes == -1)
+		bytes_read = read(fd, temp_buffer, BUFFER_SIZE);
+		if (bytes_read == -1)
 			return (free(accumulated), NULL);
-		temp_buffer[leitor_bytes] = '\0';
+		temp_buffer[bytes_read] = '\0';
 		temp = ft_strjoin(accumulated, temp_buffer);
+		if (!temp)
+			return (free(accumulated), NULL);
 		free(accumulated);
 		accumulated = temp;
-		if (!temp)
-			return (NULL);
 	}
 	return (accumulated);
 }
