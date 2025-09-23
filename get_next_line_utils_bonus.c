@@ -6,7 +6,7 @@
 /*   By: cris_sky <cris_sky@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:35:30 by cris_sky          #+#    #+#             */
-/*   Updated: 2025/09/20 14:38:14 by cris_sky         ###   ########.fr       */
+/*   Updated: 2025/09/22 21:58:58 by cris_sky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
-	len_total = ft_strlen(s1) + ft_strlen(s2);
+	len_total = len1 + len2;
 	new_str = (char *)malloc(sizeof(char) * (len_total + 1));
 	if (!new_str)
 		return (NULL);

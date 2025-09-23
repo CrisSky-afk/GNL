@@ -6,7 +6,7 @@
 /*   By: cris_sky <cris_sky@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 14:36:07 by cris_sky          #+#    #+#             */
-/*   Updated: 2025/09/20 14:39:56 by cris_sky         ###   ########.fr       */
+/*   Updated: 2025/09/22 22:18:07 by cris_sky         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@
 # include <string.h>
 # include <fcntl.h>
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1000
-# endif
-
+# define BUFFER_SIZE 42
 # define MAX_FD 1024
 
 char        *extract_line(char *buffer);
