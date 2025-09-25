@@ -1,0 +1,3 @@
+Esta é uma linha muito longa que vai testar se o get_next_line consegue lidar com linhas que são maiores que o BUFFER_SIZE definido e verificar se a função consegue ler corretamente
+Outra linha longa para testar o comportamento da função com múltiplas linhas longas que excedem o tamanho do buffer e verificam se o algoritmo está funcionando adequadamente
+Linha final também longa para garantir que todas as linhas longas são lidas corretamente mesmo quando são a última linha do arquivo
