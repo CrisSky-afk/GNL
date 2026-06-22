@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csuomins <csuomins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 11:43:24 by csuomins          #+#    #+#             */
-/*   Updated: 2025/09/25 11:45:05 by csuomins         ###   ########.fr       */
+/*   Updated: 2026/06/22 15:46:51 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,34 +93,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	new_str[len_total] = '\0';
 	return (new_str);
 }
-
-/*int main (void) // main do memcpy
-{
-    char str1[20] = "testando memcpy";
-    char str2[sizeof(str1)];
-    char *result  = ft_memcpy(str2, str1, 4);
-    printf("%s\n", result);
-    return (0);
-}
-*/
-
-/* int main (void) // main ft_strlen
-{
-    char *str1 = "Hoje é um novo dia de um novo tempo que começou";
-    size_t result = ft_strlen(str1);
-    printf("%li\n", result);
-    return (0);
-} */
-
-// int main(void)
-// {
-//     char *str1 = "fazendo o teste da bagaça";
-//     char *ptr = ft_strdup(str1);
-
-//     printf("Conteúdo copiado: %s\n", ptr);   // mostra a string duplicada
-//     printf("Endereço novo  : %p\n", (void *)ptr); // mostra o ponteiro novo
-//     printf("Endereço original: %p\n", (void *)str1);// compara com o original
-
-//     free(ptr); // boa prática: libera a memória alocada
-//     return 0;
-// }

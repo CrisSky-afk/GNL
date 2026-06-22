@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csuomins <csuomins@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cris <cris@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 11:43:27 by csuomins          #+#    #+#             */
-/*   Updated: 2025/09/25 11:43:54 by csuomins         ###   ########.fr       */
+/*   Updated: 2026/06/22 15:46:42 by cris             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,28 +117,3 @@ char	*get_next_line(int fd)
 	buffer = update_buffer(buffer);
 	return (line);
 }
-
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*linha;
-
-// 	// Abrir arquivo de teste
-// 	fd = open("1-brouette.txt", O_RDONLY);
-// 	if (fd < 0)
-// 	{
-// 		perror("Erro ao abrir arquivo");
-// 		return (1);
-// 	}
-
-// 	// Ler linha por linha
-// 	while ((linha = get_next_line(fd)) != NULL)
-// 	{
-// 		printf("%s", linha); // imprime a linha lida
-// 		free(linha);          // libera memória da linha
-// 	}
-
-// 	// Fechar arquivo
-// 	close(fd);
-// 	return (0);
-// }
